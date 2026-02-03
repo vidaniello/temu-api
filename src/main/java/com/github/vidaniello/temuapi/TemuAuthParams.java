@@ -41,4 +41,8 @@ public class TemuAuthParams implements Serializable {
 		return this;
 	}
 
+	public static TemuAuthParams getDefault() {
+		return TemuPropertyReader.getInstance().getAuthParams();
+	}
+	
 }

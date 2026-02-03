@@ -16,25 +16,20 @@ import java.io.Serializable;
  *
  * @author Vincenzo D'Aniello (vidaniello@gmail.com) github.com/vidaniello
  */
-public class TemuRequestParam implements Serializable {
+public class TemuRequest implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String type;
-	
 	private String app_key;
-	
 	private String timestamp;
-	
 	private String sign;
-	
 	private String access_token;
-	
 	private String data_type;
-	
 	private String version;
+	private TemuRequestObject request;
 	
-	public TemuRequestParam() {
+	public TemuRequest() {
 		
 	}
 	
@@ -42,7 +37,7 @@ public class TemuRequestParam implements Serializable {
 		return type;
 	}
 	
-	public TemuRequestParam setType(String type) {
+	public TemuRequest setType(String type) {
 		this.type = type;
 		return this;
 	}
@@ -51,7 +46,7 @@ public class TemuRequestParam implements Serializable {
 		return app_key;
 	}
 
-	public TemuRequestParam setApp_key(String app_key) {
+	public TemuRequest setApp_key(String app_key) {
 		this.app_key = app_key;
 		return this;
 	}
@@ -60,7 +55,7 @@ public class TemuRequestParam implements Serializable {
 		return timestamp;
 	}
 
-	public TemuRequestParam setTimestamp(String timestamp) {
+	public TemuRequest setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 		return this;
 	}
@@ -69,7 +64,7 @@ public class TemuRequestParam implements Serializable {
 		return sign;
 	}
 
-	public TemuRequestParam setSign(String sign) {
+	public TemuRequest setSign(String sign) {
 		this.sign = sign;
 		return this;
 	}
@@ -78,7 +73,7 @@ public class TemuRequestParam implements Serializable {
 		return access_token;
 	}
 
-	public TemuRequestParam setAccess_token(String access_token) {
+	public TemuRequest setAccess_token(String access_token) {
 		this.access_token = access_token;
 		return this;
 	}
@@ -87,7 +82,7 @@ public class TemuRequestParam implements Serializable {
 		return data_type;
 	}
 
-	public TemuRequestParam setData_type(String data_type) {
+	public TemuRequest setData_type(String data_type) {
 		this.data_type = data_type;
 		return this;
 	}
@@ -96,11 +91,19 @@ public class TemuRequestParam implements Serializable {
 		return version;
 	}
 
-	public TemuRequestParam setVersion(String version) {
+	public TemuRequest setVersion(String version) {
 		this.version = version;
 		return this;
 	}
 	
+	public TemuRequestObject getRequest() {
+		return request;
+	}
+	
+	public TemuRequest setRequest(TemuRequestObject request) {
+		this.request = request;
+		return this;
+	}
 	
 
 }

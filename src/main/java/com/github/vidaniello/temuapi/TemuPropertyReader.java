@@ -46,7 +46,7 @@ public class TemuPropertyReader {
 			if(temuPropFileName==null)
 				temuPropFileName = temuPropertiesDefaultFileName;
 			
-			File temuPropFile = new File(temuPropFilePath+File.pathSeparator+temuPropFileName);
+			File temuPropFile = new File(temuPropFilePath+File.separator+temuPropFileName);
 			if(temuPropFile.exists()) {
 				
 				Properties temuProps = new Properties();

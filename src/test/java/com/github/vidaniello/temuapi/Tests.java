@@ -2,6 +2,7 @@ package com.github.vidaniello.temuapi;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class Tests {
@@ -25,6 +26,17 @@ public class Tests {
 	public void testTemplate() {
 		try {
 			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	@Test
+	public void testReadingTemuAuthParameter() {
+		try {
+			TemuAuthParams tap = TemuAuthParams.getDefault();
+			Assert.assertTrue(tap!=null);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			throw new AssertionError(e);
