@@ -33,6 +33,18 @@ public class Tests {
 	}
 	
 	@Test
+	public void testGson() {
+		try {
+			
+			new TemuClient().bg_open_accesstoken_info_get();
+			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	@Test
 	public void testReadingTemuAuthParameter() {
 		try {
 			TemuAuthParams tap = TemuAuthParams.getDefault();

@@ -1,6 +1,10 @@
 package com.github.vidaniello.temuapi;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.Calendar;
+
+import com.github.vidaniello.temuapi.requestresultobjects.TemuRequestObject;
 
 /**
  * Represents a request parameter object for the Temu API.
@@ -16,20 +20,20 @@ import java.io.Serializable;
  *
  * @author Vincenzo D'Aniello (vidaniello@gmail.com) github.com/vidaniello
  */
-public class TemuRequest implements Serializable {
+public class TemuCommonRequestParameters implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String type;
 	private String app_key;
-	private String timestamp;
-	private String sign;
 	private String access_token;
 	private String data_type;
+	private String sign;
+	private String timestamp;
+	private String type;	
 	private String version;
-	private TemuRequestObject request;
 	
-	public TemuRequest() {
+	
+	public TemuCommonRequestParameters() {
 		
 	}
 	
@@ -37,7 +41,7 @@ public class TemuRequest implements Serializable {
 		return type;
 	}
 	
-	public TemuRequest setType(String type) {
+	public TemuCommonRequestParameters setType(String type) {
 		this.type = type;
 		return this;
 	}
@@ -46,7 +50,7 @@ public class TemuRequest implements Serializable {
 		return app_key;
 	}
 
-	public TemuRequest setApp_key(String app_key) {
+	public TemuCommonRequestParameters setApp_key(String app_key) {
 		this.app_key = app_key;
 		return this;
 	}
@@ -55,7 +59,7 @@ public class TemuRequest implements Serializable {
 		return timestamp;
 	}
 
-	public TemuRequest setTimestamp(String timestamp) {
+	public TemuCommonRequestParameters setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 		return this;
 	}
@@ -64,7 +68,7 @@ public class TemuRequest implements Serializable {
 		return sign;
 	}
 
-	public TemuRequest setSign(String sign) {
+	public TemuCommonRequestParameters setSign(String sign) {
 		this.sign = sign;
 		return this;
 	}
@@ -73,7 +77,7 @@ public class TemuRequest implements Serializable {
 		return access_token;
 	}
 
-	public TemuRequest setAccess_token(String access_token) {
+	public TemuCommonRequestParameters setAccess_token(String access_token) {
 		this.access_token = access_token;
 		return this;
 	}
@@ -82,7 +86,7 @@ public class TemuRequest implements Serializable {
 		return data_type;
 	}
 
-	public TemuRequest setData_type(String data_type) {
+	public TemuCommonRequestParameters setData_type(String data_type) {
 		this.data_type = data_type;
 		return this;
 	}
@@ -91,19 +95,17 @@ public class TemuRequest implements Serializable {
 		return version;
 	}
 
-	public TemuRequest setVersion(String version) {
+	public TemuCommonRequestParameters setVersion(String version) {
 		this.version = version;
 		return this;
 	}
 	
-	public TemuRequestObject getRequest() {
-		return request;
+	public static final TemuCommonRequestParameters initDefault() {
+		TemuAuthParams tap = TemuAuthParams.getDefault();
+		return new TemuCommonRequestParameters()
+				.setApp_key(tap.getAppKey())
+				.setAccess_token(tap.getAccessToken())
+				.setTimestamp(new Long(Calendar.getInstance().getTime().getTime()).toString());
 	}
 	
-	public TemuRequest setRequest(TemuRequestObject request) {
-		this.request = request;
-		return this;
-	}
-	
-
 }

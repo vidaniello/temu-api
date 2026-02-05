@@ -6,12 +6,23 @@ public class TemuAuthParams implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private boolean testAccount;
+	private String endpoint;
 	private String accessToken;
 	private String appKey;
-	private String sign;
+	private String appSecret;
 	
 	public TemuAuthParams() {
 	
+	}
+	
+	public String getEndpoint() {
+		return endpoint;
+	}
+	
+	public TemuAuthParams setEndpoint(String endpoint) {
+		this.endpoint = endpoint;
+		return this;
 	}
 	
 	public String getAccessToken() {
@@ -31,13 +42,22 @@ public class TemuAuthParams implements Serializable {
 		this.appKey = appKey;
 		return this;
 	}
-
-	public String getSign() {
-		return sign;
+	
+	public String getAppSecret() {
+		return appSecret;
 	}
-
-	public TemuAuthParams setSign(String sign) {
-		this.sign = sign;
+	
+	public TemuAuthParams setAppSecret(String appSecret) {
+		this.appSecret = appSecret;
+		return this;
+	}
+	
+	public boolean isTestAccount() {
+		return testAccount;
+	}
+	
+	public TemuAuthParams setTestAccount(boolean testAccount) {
+		this.testAccount = testAccount;
 		return this;
 	}
 

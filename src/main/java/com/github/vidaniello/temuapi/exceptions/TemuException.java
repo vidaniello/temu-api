@@ -1,4 +1,4 @@
-package com.github.vidaniello.temuapi;
+package com.github.vidaniello.temuapi.exceptions;
 
 public class TemuException extends Exception {
 

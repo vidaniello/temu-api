@@ -1,4 +1,4 @@
-package com.github.vidaniello.temuapi;
+package com.github.vidaniello.temuapi.requestresultobjects;
 
 import java.io.Serializable;
 
