@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.Calendar;
 
-import com.github.vidaniello.temuapi.requestresultobjects.TemuRequestObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 /**
  * Represents a request parameter object for the Temu API.
@@ -24,10 +25,11 @@ public class TemuCommonRequestParameters implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	
+	
 	private String app_key;
 	private String access_token;
 	private String data_type;
-	private String sign;
 	private String timestamp;
 	private String type;	
 	private String version;
@@ -64,15 +66,6 @@ public class TemuCommonRequestParameters implements Serializable {
 		return this;
 	}
 
-	public String getSign() {
-		return sign;
-	}
-
-	public TemuCommonRequestParameters setSign(String sign) {
-		this.sign = sign;
-		return this;
-	}
-
 	public String getAccess_token() {
 		return access_token;
 	}
@@ -100,12 +93,14 @@ public class TemuCommonRequestParameters implements Serializable {
 		return this;
 	}
 	
-	public static final TemuCommonRequestParameters initDefault() {
-		TemuAuthParams tap = TemuAuthParams.getDefault();
-		return new TemuCommonRequestParameters()
-				.setApp_key(tap.getAppKey())
-				.setAccess_token(tap.getAccessToken())
-				.setTimestamp(new Long(Calendar.getInstance().getTime().getTime()).toString());
+	public void loadRequest(Gson gson, JsonObject request) {
+		if(request!=null && gson!=null) {
+			gson
+				.toJsonTree(this)
+				.getAsJsonObject()
+				.asMap()
+				.forEach(request::add);
+		}
 	}
 	
 }

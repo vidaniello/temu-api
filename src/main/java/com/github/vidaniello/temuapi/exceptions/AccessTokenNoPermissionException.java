@@ -4,33 +4,40 @@ public class AccessTokenNoPermissionException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000032;
+    private static final String ERROR_MSG = "access_token don't have this api access, please ask for seller to authorize this api in seller center first, and share the new access_token with you.";
+    private static final String DESCRIPTION = "The access_token does not have permission to call the Type interface.";
+    
+    private final String errorMsgFromResponse;
     
     public AccessTokenNoPermissionException() {
-        super("access_token don't have this api access, please ask for seller to authorize this api in seller center first, and share the new access_token with you.");
-        this.errorCode = 3000032;
-        this.errorMsg = "access_token don't have this api access, please ask for seller to authorize this api in seller center first, and share the new access_token with you.";
-        this.description = "The access_token does not have permission to call the Type interface.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public AccessTokenNoPermissionException(Exception exception) {
-        super("access_token don't have this api access, please ask for seller to authorize this api in seller center first, and share the new access_token with you.", exception);
-        this.errorCode = 3000032;
-        this.errorMsg = "access_token don't have this api access, please ask for seller to authorize this api in seller center first, and share the new access_token with you.";
-        this.description = "The access_token does not have permission to call the Type interface.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public AccessTokenNoPermissionException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

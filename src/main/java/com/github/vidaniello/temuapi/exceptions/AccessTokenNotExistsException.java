@@ -4,33 +4,40 @@ public class AccessTokenNotExistsException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000031;
+    private static final String ERROR_MSG = "access_token not exists.";
+    private static final String DESCRIPTION = "access_token did not exist.";
+    
+    private final String errorMsgFromResponse;
     
     public AccessTokenNotExistsException() {
-        super("access_token not exists.");
-        this.errorCode = 3000031;
-        this.errorMsg = "access_token not exists.";
-        this.description = "access_token did not exist.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public AccessTokenNotExistsException(Exception exception) {
-        super("access_token not exists.", exception);
-        this.errorCode = 3000031;
-        this.errorMsg = "access_token not exists.";
-        this.description = "access_token did not exist.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public AccessTokenNotExistsException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

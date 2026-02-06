@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.github.vidaniello.temuapi.requestresultobjects.AccessTokenInfoGetResponse;
+
 public class Tests {
 	static {
 		// Log4j from 2.17.>
@@ -33,10 +35,16 @@ public class Tests {
 	}
 	
 	@Test
-	public void testGson() {
+	public void testAccessTokenInfoGetResponse() {
 		try {
 			
-			new TemuClient().bg_open_accesstoken_info_get();
+			AccessTokenInfoGetResponse resp = new TemuClient(TemuSandboxAccounts.getForIT()).bgOpenAccesstokenInfoGet();
+			
+			Assert.assertTrue(resp!=null);
+			
+			Assert.assertTrue(!resp.getApiScopeList().isEmpty());
+			
+			log.debug("Shop id: "+resp.getMallId());
 			
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

@@ -4,33 +4,40 @@ public class ClientIdMissingException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000019;
+    private static final String ERROR_MSG = "there is no client_id in body.";
+    private static final String DESCRIPTION = "app_key is missing.";
+    
+    private final String errorMsgFromResponse;
     
     public ClientIdMissingException() {
-        super("there is no client_id in body.");
-        this.errorCode = 3000019;
-        this.errorMsg = "there is no client_id in body.";
-        this.description = "app_key is missing.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public ClientIdMissingException(Exception exception) {
-        super("there is no client_id in body.", exception);
-        this.errorCode = 3000019;
-        this.errorMsg = "there is no client_id in body.";
-        this.description = "app_key is missing.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public ClientIdMissingException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

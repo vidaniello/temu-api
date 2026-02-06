@@ -4,33 +4,40 @@ public class BusinessServiceErrorException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 7000000;
+    private static final String ERROR_MSG = "BUSINESS_SERVICE_ERROR";
+    private static final String DESCRIPTION = "BUSINESS_SERVICE_ERROR.";
+    
+    private final String errorMsgFromResponse;
     
     public BusinessServiceErrorException() {
-        super("BUSINESS_SERVICE_ERROR");
-        this.errorCode = 7000000;
-        this.errorMsg = "BUSINESS_SERVICE_ERROR";
-        this.description = "BUSINESS_SERVICE_ERROR.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public BusinessServiceErrorException(Exception exception) {
-        super("BUSINESS_SERVICE_ERROR", exception);
-        this.errorCode = 7000000;
-        this.errorMsg = "BUSINESS_SERVICE_ERROR";
-        this.description = "BUSINESS_SERVICE_ERROR.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public BusinessServiceErrorException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

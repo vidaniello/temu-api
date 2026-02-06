@@ -4,33 +4,40 @@ public class DataTypeMissingException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000013;
+    private static final String ERROR_MSG = "there is no data_type in body.";
+    private static final String DESCRIPTION = "data_type type is missing.";
+    
+    private final String errorMsgFromResponse;
     
     public DataTypeMissingException() {
-        super("there is no data_type in body.");
-        this.errorCode = 3000013;
-        this.errorMsg = "there is no data_type in body.";
-        this.description = "data_type type is missing.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public DataTypeMissingException(Exception exception) {
-        super("there is no data_type in body.", exception);
-        this.errorCode = 3000013;
-        this.errorMsg = "there is no data_type in body.";
-        this.description = "data_type type is missing.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public DataTypeMissingException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

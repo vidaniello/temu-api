@@ -4,33 +4,40 @@ public class AuthorizeNotAllowException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 5000000;
+    private static final String ERROR_MSG = "AUTHORIZE_NOT_ALLOW";
+    private static final String DESCRIPTION = "The merchant is not authorized / access token verification failed / interface authentication failed.";
+    
+    private final String errorMsgFromResponse;
     
     public AuthorizeNotAllowException() {
-        super("AUTHORIZE_NOT_ALLOW");
-        this.errorCode = 5000000;
-        this.errorMsg = "AUTHORIZE_NOT_ALLOW";
-        this.description = "The merchant is not authorized / access token verification failed / interface authentication failed.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public AuthorizeNotAllowException(Exception exception) {
-        super("AUTHORIZE_NOT_ALLOW", exception);
-        this.errorCode = 5000000;
-        this.errorMsg = "AUTHORIZE_NOT_ALLOW";
-        this.description = "The merchant is not authorized / access token verification failed / interface authentication failed.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public AuthorizeNotAllowException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

@@ -4,33 +4,40 @@ public class TypeSunsetException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000004;
+    private static final String ERROR_MSG = "type has been sunset, please stop calling this type and change to use another one.";
+    private static final String DESCRIPTION = "API type status is wrong.";
+    
+    private final String errorMsgFromResponse;
     
     public TypeSunsetException() {
-        super("type has been sunset, please stop calling this type and change to use another one.");
-        this.errorCode = 3000004;
-        this.errorMsg = "type has been sunset, please stop calling this type and change to use another one.";
-        this.description = "API type status is wrong.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public TypeSunsetException(Exception exception) {
-        super("type has been sunset, please stop calling this type and change to use another one.", exception);
-        this.errorCode = 3000004;
-        this.errorMsg = "type has been sunset, please stop calling this type and change to use another one.";
-        this.description = "API type status is wrong.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public TypeSunsetException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

@@ -4,33 +4,40 @@ public class RpcInterfaceNotFoundException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 6000001;
+    private static final String ERROR_MSG = "RPC_INTERFACE_NOT_FOUND";
+    private static final String DESCRIPTION = "Internal api is missing.";
+    
+    private final String errorMsgFromResponse;
     
     public RpcInterfaceNotFoundException() {
-        super("RPC_INTERFACE_NOT_FOUND");
-        this.errorCode = 6000001;
-        this.errorMsg = "RPC_INTERFACE_NOT_FOUND";
-        this.description = "Internal api is missing.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public RpcInterfaceNotFoundException(Exception exception) {
-        super("RPC_INTERFACE_NOT_FOUND", exception);
-        this.errorCode = 6000001;
-        this.errorMsg = "RPC_INTERFACE_NOT_FOUND";
-        this.description = "Internal api is missing.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public RpcInterfaceNotFoundException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

@@ -4,33 +4,40 @@ public class TypeNotExistsException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000003;
+    private static final String ERROR_MSG = "type not exists";
+    private static final String DESCRIPTION = "API type status did not exist.";
+    
+    private final String errorMsgFromResponse;
     
     public TypeNotExistsException() {
-        super("type not exists");
-        this.errorCode = 3000003;
-        this.errorMsg = "type not exists";
-        this.description = "API type status did not exist.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public TypeNotExistsException(Exception exception) {
-        super("type not exists", exception);
-        this.errorCode = 3000003;
-        this.errorMsg = "type not exists";
-        this.description = "API type status did not exist.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public TypeNotExistsException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

@@ -4,33 +4,40 @@ public class DataTypeInvalidException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000014;
+    private static final String ERROR_MSG = "data_type is invalid";
+    private static final String DESCRIPTION = "The data_type parameter value is invalid (other characters besides \"Json\" (case-insensitive) were passed).";
+    
+    private final String errorMsgFromResponse;
     
     public DataTypeInvalidException() {
-        super("data_type is invalid");
-        this.errorCode = 3000014;
-        this.errorMsg = "data_type is invalid";
-        this.description = "The data_type parameter value is invalid (other characters besides \"Json\" (case-insensitive) were passed).";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public DataTypeInvalidException(Exception exception) {
-        super("data_type is invalid", exception);
-        this.errorCode = 3000014;
-        this.errorMsg = "data_type is invalid";
-        this.description = "The data_type parameter value is invalid (other characters besides \"Json\" (case-insensitive) were passed).";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public DataTypeInvalidException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

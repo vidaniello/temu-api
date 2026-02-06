@@ -4,33 +4,40 @@ public class TimestampMissingException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000010;
+    private static final String ERROR_MSG = "there is no timestamp in body.";
+    private static final String DESCRIPTION = "timestamp is missing.";
+    
+    private final String errorMsgFromResponse;
     
     public TimestampMissingException() {
-        super("there is no timestamp in body.");
-        this.errorCode = 3000010;
-        this.errorMsg = "there is no timestamp in body.";
-        this.description = "timestamp is missing.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public TimestampMissingException(Exception exception) {
-        super("there is no timestamp in body.", exception);
-        this.errorCode = 3000010;
-        this.errorMsg = "there is no timestamp in body.";
-        this.description = "timestamp is missing.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public TimestampMissingException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

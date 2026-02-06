@@ -4,33 +4,40 @@ public class TimestampInvalidException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
-    private final int errorCode;
-    private final String errorMsg;
-    private final String description;
+    private static final int ERROR_CODE = 3000011;
+    private static final String ERROR_MSG = "timestamp is invalid.";
+    private static final String DESCRIPTION = "timestamp is invalid, if timestamp>current_time+300s.";
+    
+    private final String errorMsgFromResponse;
     
     public TimestampInvalidException() {
-        super("timestamp is invalid.");
-        this.errorCode = 3000011;
-        this.errorMsg = "timestamp is invalid.";
-        this.description = "timestamp is invalid, if timestamp>current_time+300s.";
+        super(ERROR_MSG);
+        this.errorMsgFromResponse = ERROR_MSG;
     }
     
     public TimestampInvalidException(Exception exception) {
-        super("timestamp is invalid.", exception);
-        this.errorCode = 3000011;
-        this.errorMsg = "timestamp is invalid.";
-        this.description = "timestamp is invalid, if timestamp>current_time+300s.";
+        super(ERROR_MSG, exception);
+        this.errorMsgFromResponse = ERROR_MSG;
+    }
+    
+    public TimestampInvalidException(String errorMsgFromResponse) {
+        super(errorMsgFromResponse);
+        this.errorMsgFromResponse = errorMsgFromResponse;
     }
     
     public int getErrorCode() {
-        return errorCode;
+        return ERROR_CODE;
     }
     
     public String getErrorMsg() {
-        return errorMsg;
+        return ERROR_MSG;
     }
     
     public String getDescription() {
-        return description;
+        return DESCRIPTION;
+    }
+    
+    public String getErrorMsgFromResponse() {
+        return errorMsgFromResponse;
     }
 }

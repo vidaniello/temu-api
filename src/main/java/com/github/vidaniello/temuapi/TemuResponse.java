@@ -2,7 +2,7 @@ package com.github.vidaniello.temuapi;
 
 import java.io.Serializable;
 
-import com.github.vidaniello.temuapi.requestresultobjects.TemuResultObject;
+import com.google.gson.JsonObject;
 
 public class TemuResponse implements Serializable {
 
@@ -12,6 +12,7 @@ public class TemuResponse implements Serializable {
 	private String requestId;
 	private Integer errorCode;
 	private String errorMsg;
+	private JsonObject result;
 	
 	public TemuResponse() {
 		
@@ -53,6 +54,13 @@ public class TemuResponse implements Serializable {
 		return this;
 	}
 	
+	public JsonObject getResult() {
+		return result;
+	}
 	
+	public TemuResponse setResult(JsonObject result) {
+		this.result = result;
+		return this;
+	}
 	
 }
