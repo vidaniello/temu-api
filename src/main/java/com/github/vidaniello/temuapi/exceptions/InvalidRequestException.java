@@ -1,6 +1,6 @@
 package com.github.vidaniello.temuapi.exceptions;
 
-public class UnknownException extends TemuException {
+public class InvalidRequestException extends TemuException {
 
     private static final long serialVersionUID = 1L;
     
@@ -8,7 +8,7 @@ public class UnknownException extends TemuException {
     private final String errorMsg;
  
     
-    public UnknownException(int errorCode, String errorMsg) {
+    public InvalidRequestException(int errorCode, String errorMsg) {
         super(errorMsg);
         this.errorCode = errorCode;
         this.errorMsg =errorMsg;

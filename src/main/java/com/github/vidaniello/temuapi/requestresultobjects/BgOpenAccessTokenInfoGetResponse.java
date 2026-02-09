@@ -8,7 +8,7 @@ import java.util.List;
  * Contains information about the access token including expiration time,
  * mall details, and authorized API scopes.
  */
-public class AccessTokenInfoGetResponse implements TemuResponseIf {
+public class BgOpenAccessTokenInfoGetResponse implements TemuResponseIf {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -64,7 +64,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 */
 	private List<AuthEventCode> authEventCodeList;
 	
-	public AccessTokenInfoGetResponse() {
+	public BgOpenAccessTokenInfoGetResponse() {
 	
 	}
 	
@@ -79,7 +79,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param expiredTime the expiration timestamp in seconds for access token
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setExpiredTime(Long expiredTime) {
+	public BgOpenAccessTokenInfoGetResponse setExpiredTime(Long expiredTime) {
 		this.expiredTime = expiredTime;
 		return this;
 	}
@@ -95,7 +95,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param mallId Temu's unique identifier for a mall
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setMallId(Long mallId) {
+	public BgOpenAccessTokenInfoGetResponse setMallId(Long mallId) {
 		this.mallId = mallId;
 		return this;
 	}
@@ -111,7 +111,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param mallType the mall type to set
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setMallType(Integer mallType) {
+	public BgOpenAccessTokenInfoGetResponse setMallType(Integer mallType) {
 		this.mallType = mallType;
 		return this;
 	}
@@ -127,7 +127,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param semiUniqueId the unique identifier for semi-managed stores
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setSemiUniqueId(String semiUniqueId) {
+	public BgOpenAccessTokenInfoGetResponse setSemiUniqueId(String semiUniqueId) {
 		this.semiUniqueId = semiUniqueId;
 		return this;
 	}
@@ -143,7 +143,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param regionId the region which the mall belongs to
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setRegionId(Long regionId) {
+	public BgOpenAccessTokenInfoGetResponse setRegionId(Long regionId) {
 		this.regionId = regionId;
 		return this;
 	}
@@ -159,7 +159,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param apiScopeList the list of APIs that the current token has been authorized for
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setApiScopeList(List<String> apiScopeList) {
+	public BgOpenAccessTokenInfoGetResponse setApiScopeList(List<String> apiScopeList) {
 		this.apiScopeList = apiScopeList;
 		return this;
 	}
@@ -175,7 +175,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param appSubscribeEventCodeList the list of event codes you have subscribed
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setAppSubscribeEventCodeList(List<String> appSubscribeEventCodeList) {
+	public BgOpenAccessTokenInfoGetResponse setAppSubscribeEventCodeList(List<String> appSubscribeEventCodeList) {
 		this.appSubscribeEventCodeList = appSubscribeEventCodeList;
 		return this;
 	}
@@ -191,7 +191,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param appSubscribeStatus the status of pushing for your application
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setAppSubscribeStatus(Integer appSubscribeStatus) {
+	public BgOpenAccessTokenInfoGetResponse setAppSubscribeStatus(Integer appSubscribeStatus) {
 		this.appSubscribeStatus = appSubscribeStatus;
 		return this;
 	}
@@ -207,7 +207,7 @@ public class AccessTokenInfoGetResponse implements TemuResponseIf {
 	 * @param authEventCodeList the list of events your access token is authorized to receive
 	 * @return this response object for method chaining
 	 */
-	public AccessTokenInfoGetResponse setAuthEventCodeList(List<AuthEventCode> authEventCodeList) {
+	public BgOpenAccessTokenInfoGetResponse setAuthEventCodeList(List<AuthEventCode> authEventCodeList) {
 		this.authEventCodeList = authEventCodeList;
 		return this;
 	}

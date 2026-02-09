@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.github.vidaniello.temuapi.exceptions.TemuException;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuRequestIf;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuResponseIf;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -21,6 +22,7 @@ public class TemuWorkflow<T extends TemuResponseIf> {
 	private Date requestDate;
 	private TemuAuthParams temuAuthParams;
 	private TemuCommonRequestParameters temuCommonRequestParameters;
+	private TemuRequestIf requestObject;
 	private JsonObject request;
 	private TemuResponse temuResponse;
 	private TemuException temuException;
@@ -90,6 +92,15 @@ public class TemuWorkflow<T extends TemuResponseIf> {
 		
 	}
 
+	public TemuRequestIf getRequestObject() {
+		return requestObject;
+	}
+	
+	public TemuWorkflow<T> setRequestObject(TemuRequestIf requestObject) {
+		this.requestObject = requestObject;
+		return this;
+	}
+	
 	public JsonObject getRequest() {
 		if(request==null)
 			request = new JsonObject();
@@ -132,9 +143,8 @@ public class TemuWorkflow<T extends TemuResponseIf> {
 	}
 	
 	public T getResponseObject() {
-		if(getTemuResponse().getResult()!=null) {
+		if(getTemuResponse().getResult()!=null) 
 			responseObject = getGson().fromJson(getTemuResponse().getResult(), getResponseType());
-		}
 		return responseObject;
 	}
 	
@@ -151,7 +161,14 @@ public class TemuWorkflow<T extends TemuResponseIf> {
     	
     	getTemuCommonRequestParameters().loadRequest(getGson(), getRequest());
     	
-    	//Insert here if the request require a request objects
+    	
+    	if(getRequestObject()!=null) 
+    		getGson()
+    			.toJsonTree(getRequestObject())
+    			.getAsJsonObject()
+    			.asMap()
+				.forEach(getRequest()::add);
+    	
     	
     	getRequest()
     		.keySet()
@@ -163,7 +180,7 @@ public class TemuWorkflow<T extends TemuResponseIf> {
     			if(jsel.isJsonPrimitive())
     				concatStr = jsel.getAsString();
     			else
-    				concatStr = jsel.getAsString();
+    				concatStr = getGson().toJson(jsel);
     				
     			concat.append(key+concatStr);
     		});

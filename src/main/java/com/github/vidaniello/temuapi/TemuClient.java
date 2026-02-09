@@ -2,7 +2,11 @@ package com.github.vidaniello.temuapi;
 
 import com.github.vidaniello.temuapi.exceptions.TemuException;
 import com.github.vidaniello.temuapi.exceptions.TemuExceptionFactory;
-import com.github.vidaniello.temuapi.requestresultobjects.AccessTokenInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOpenAccessTokenInfoGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuResponseIf;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -53,7 +57,7 @@ public class TemuClient {
      * @throws  
      * @throws IOException if an I/O error occurs during the request
      */
-    public <T extends TemuResponseIf> T postWorkflow(TemuWorkflow<T> tw) throws  TemuException, IOException {
+    public <T extends TemuResponseIf> T doPOST(TemuWorkflow<T> tw) throws  TemuException, IOException {
     	
     	tw.setRequestDate(new Date());
     	
@@ -85,18 +89,47 @@ public class TemuClient {
         return null;
     }
     
-    public AccessTokenInfoGetResponse bgOpenAccesstokenInfoGet() throws IOException, TemuException {
+    public BgOpenAccessTokenInfoGetResponse bgOpenAccesstokenInfoGet() throws IOException, TemuException {
     	String type = "bg.open.accesstoken.info.get";
     	
-    	TemuWorkflow<AccessTokenInfoGetResponse> tw = TemuWorkflow
-    													.<AccessTokenInfoGetResponse>init(getTemuAuthParams())
-    													.setResponseType(AccessTokenInfoGetResponse.class);
+    	TemuWorkflow<BgOpenAccessTokenInfoGetResponse> tw = TemuWorkflow
+    													.<BgOpenAccessTokenInfoGetResponse>init(getTemuAuthParams())
+    													.setResponseType(BgOpenAccessTokenInfoGetResponse.class);
     	
     	tw.getTemuCommonRequestParameters()
-    	  .setType(type)
-    	  ;
+    	  .setType(type);
     	
-    	return postWorkflow(tw);
+    	return doPOST(tw);
+    	
+    }
+    
+    public BgLocalMallInfoGetResponse bgLocalMallInfoGet(BgLocalMallInfoGetRequest request) throws IOException, TemuException {
+    	String type = "bg.local.mall.info.get";
+    	
+    	TemuWorkflow<BgLocalMallInfoGetResponse> tw = TemuWorkflow
+    													.<BgLocalMallInfoGetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLocalMallInfoGetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public BgLocalGoodsCatsGetResponse bgLocalGoodsCatsGet(BgLocalGoodsCatsGetRequest request) throws IOException, TemuException {
+    	String type = "bg.local.goods.cats.get";
+    	
+    	TemuWorkflow<BgLocalGoodsCatsGetResponse> tw = TemuWorkflow
+    													.<BgLocalGoodsCatsGetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLocalGoodsCatsGetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
     	
     }
 }

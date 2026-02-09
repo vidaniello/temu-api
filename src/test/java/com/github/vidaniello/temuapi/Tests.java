@@ -1,11 +1,21 @@
 package com.github.vidaniello.temuapi;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.vidaniello.temuapi.requestresultobjects.AccessTokenInfoGetResponse;
+import com.github.vidaniello.temuapi.exceptions.TemuException;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetResponse.GoodsCats;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOpenAccessTokenInfoGetResponse;
 
 public class Tests {
 	static {
@@ -35,16 +45,69 @@ public class Tests {
 	}
 	
 	@Test
-	public void testAccessTokenInfoGetResponse() {
+	public void testCatsRequest() {
 		try {
 			
-			AccessTokenInfoGetResponse resp = new TemuClient(TemuSandboxAccounts.getForIT()).bgOpenAccesstokenInfoGet();
+			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
+			
+			
+			BgLocalGoodsCatsGetResponse resp = client.bgLocalGoodsCatsGet(new BgLocalGoodsCatsGetRequest());
+
 			
 			Assert.assertTrue(resp!=null);
 			
-			Assert.assertTrue(!resp.getApiScopeList().isEmpty());
+			iterateCategories(client, resp.getGoodsCatsList(), "");
 			
-			log.debug("Shop id: "+resp.getMallId());
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	public void iterateCategories(TemuClient client, List<GoodsCats> categoryList, String identitation) throws IOException, TemuException {
+		for(GoodsCats cat : categoryList) {
+			log.trace(identitation+cat.getCatId()+" - "+cat.getCatName());
+			if(!cat.getLeaf())
+				iterateCategory(client, cat, identitation+"\t");
+		}
+	}
+	
+	public void iterateCategory(TemuClient client, GoodsCats parentCat, String identitation) throws IOException, TemuException {
+		iterateCategories(client, client.bgLocalGoodsCatsGet(new BgLocalGoodsCatsGetRequest().setParentCatId(parentCat.getCatId())).getGoodsCatsList(),identitation);
+	}
+	
+	
+	
+	
+	@Test
+	public void testApiRequestMethods() {
+		try {
+			
+			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
+			
+			
+			
+			BgOpenAccessTokenInfoGetResponse accessTokenResp = client.bgOpenAccesstokenInfoGet();
+			
+			Assert.assertTrue(accessTokenResp!=null);
+			
+			Assert.assertTrue(!accessTokenResp.getApiScopeList().isEmpty());
+			
+			log.debug("Shop id: "+accessTokenResp.getMallId());
+			
+			
+			
+			BgLocalMallInfoGetResponse mallResp = client
+					.bgLocalMallInfoGet(
+							new BgLocalMallInfoGetRequest()
+								.setBranchesMallId( Arrays.asList(accessTokenResp.getMallId()) )
+							);
+			
+			Assert.assertTrue(mallResp!=null);
+			
+			log.debug("Site id: "+mallResp.getSiteId());
+			
+			
 			
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);

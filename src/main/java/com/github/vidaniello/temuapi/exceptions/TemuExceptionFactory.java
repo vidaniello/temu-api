@@ -107,7 +107,7 @@ public class TemuExceptionFactory {
             case 7000000:
                 return new BusinessServiceErrorException(errorMsg);
             default:
-                return new UnknownException(errorCode, errorMsg != null ? errorMsg : "Unknown error");
+                return new InvalidRequestException(errorCode, errorMsg != null ? errorMsg : "error code "+new Integer(errorCode).toString());
         }
     }
 }
