@@ -50,9 +50,7 @@ public class Tests {
 			
 			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
 			
-			
 			BgLocalGoodsCatsGetResponse resp = client.bgLocalGoodsCatsGet(new BgLocalGoodsCatsGetRequest());
-
 			
 			Assert.assertTrue(resp!=null);
 			
