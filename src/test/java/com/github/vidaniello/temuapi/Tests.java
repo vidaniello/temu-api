@@ -10,12 +10,18 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.vidaniello.temuapi.exceptions.TemuException;
+import com.github.vidaniello.temuapi.requestresultobjects.BgFreightTemplateListQueryResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetResponse.GoodsCats;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetResponse.ItemTaxCodeInfo;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgOpenAccessTokenInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetResponse;
 
 public class Tests {
 	static {
@@ -43,6 +49,66 @@ public class Tests {
 			throw new AssertionError(e);
 		}
 	}
+	
+	@Test
+	public void testBgLocalGoodsTaxCodeGet() {
+		try {
+			
+			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
+			
+			BgLocalGoodsTaxCodeGetResponse resp = client.bgLocalGoodsTaxCodeGet(new BgLocalGoodsTaxCodeGetRequest().setCatId(54561l));
+			
+			Assert.assertTrue(resp!=null);
+
+			log.trace("Totale tax codes: "+resp.getItemTaxCodeList().size());
+			
+			for(ItemTaxCodeInfo ItemTaxCodeInfo : resp.getItemTaxCodeList()) {
+				log.trace("\t"+ItemTaxCodeInfo.getItemTaxCode()+" "+ItemTaxCodeInfo.getItemTaxCodeDesc());
+			}
+						
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	@Test
+	public void testTemuLocalGoodsBrandTrademarkV2Get() {
+		try {
+			
+			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
+			
+			TemuLocalGoodsBrandTrademarkV2GetResponse resp = client.temuLocalGoodsBrandTrademarkV2Get(new TemuLocalGoodsBrandTrademarkV2GetRequest().setPage(1).setSize(100));
+			
+			Assert.assertTrue(resp!=null);
+			
+			Assert.assertTrue(!resp.getTrademarkList().isEmpty());
+			
+			log.trace("Totale trademarks: "+resp.getTotalNum());
+						
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	
+	@Test
+	public void testbgFreightTemplateListQuery() {
+		try {
+			
+			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
+			
+			BgFreightTemplateListQueryResponse resp = client.bgFreightTemplateListQuery();
+			
+			Assert.assertTrue(resp!=null);
+						
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
 	
 	@Test
 	public void testCatsRequest() {

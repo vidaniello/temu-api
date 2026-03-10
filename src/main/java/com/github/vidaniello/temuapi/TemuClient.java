@@ -5,15 +5,29 @@ import com.github.vidaniello.temuapi.exceptions.TemuExceptionFactory;
 import com.github.vidaniello.temuapi.requestresultobjects.BgFreightTemplateListQueryResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsCatsGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsImageUploadRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsImageUploadResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsPartialUpdateRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsPartialUpdateResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgOpenAccessTokenInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsDeleteRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsDeleteResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsListRetrieveRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsListRetrieveResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsV2AddRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsV2AddResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductAttributesGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductAttributesGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductVariationGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductVariationGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalSkuListRetrieveRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalSkuListRetrieveResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuResponseIf;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -184,6 +198,51 @@ public class TemuClient {
     	
     }
     
+    public TemuLocalGoodsBrandTrademarkV2GetResponse temuLocalGoodsBrandTrademarkV2Get(TemuLocalGoodsBrandTrademarkV2GetRequest request) throws IOException, TemuException {
+    	String type = "temu.local.goods.brand.trademark.V2.get";
+    	
+    	TemuWorkflow<TemuLocalGoodsBrandTrademarkV2GetResponse> tw = TemuWorkflow
+    													.<TemuLocalGoodsBrandTrademarkV2GetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuLocalGoodsBrandTrademarkV2GetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public BgLocalGoodsTaxCodeGetResponse bgLocalGoodsTaxCodeGet(BgLocalGoodsTaxCodeGetRequest request) throws IOException, TemuException {
+    	String type = "bg.local.goods.tax.code.get";
+    	
+    	TemuWorkflow<BgLocalGoodsTaxCodeGetResponse> tw = TemuWorkflow
+    													.<BgLocalGoodsTaxCodeGetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLocalGoodsTaxCodeGetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public BgLocalGoodsImageUploadResponse bgLocalGoodsImageUpload(BgLocalGoodsImageUploadRequest request) throws IOException, TemuException {
+    	String type = "bg.local.goods.image.upload";
+    	
+    	TemuWorkflow<BgLocalGoodsImageUploadResponse> tw = TemuWorkflow
+    													.<BgLocalGoodsImageUploadResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLocalGoodsImageUploadResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
     public TemuLocalGoodsV2AddResponse temuLocalGoodsV2Add(TemuLocalGoodsV2AddRequest request) throws IOException, TemuException {
     	String type = "temu.local.goods.v2.add";
     	
@@ -198,4 +257,66 @@ public class TemuClient {
     	return doPOST(tw);
     	
     }
+    
+    public BgLocalGoodsPartialUpdateResponse bgLocalGoodsPartialUpdate(BgLocalGoodsPartialUpdateRequest request) throws IOException, TemuException {
+    	String type = "bg.local.goods.partial.update";
+    	
+    	TemuWorkflow<BgLocalGoodsPartialUpdateResponse> tw = TemuWorkflow
+    													.<BgLocalGoodsPartialUpdateResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLocalGoodsPartialUpdateResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public TemuLocalGoodsDeleteResponse temuLocalGoodsDelete(TemuLocalGoodsDeleteRequest request) throws IOException, TemuException {
+    	String type = "temu.local.goods.delete";
+    	
+    	TemuWorkflow<TemuLocalGoodsDeleteResponse> tw = TemuWorkflow
+    													.<TemuLocalGoodsDeleteResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuLocalGoodsDeleteResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public TemuLocalSkuListRetrieveResponse temuLocalSkuListRetrieve(TemuLocalSkuListRetrieveRequest request) throws IOException, TemuException {
+    	String type = "temu.local.sku.list.retrieve";
+    	
+    	TemuWorkflow<TemuLocalSkuListRetrieveResponse> tw = TemuWorkflow
+    													.<TemuLocalSkuListRetrieveResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuLocalSkuListRetrieveResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public TemuLocalGoodsListRetrieveResponse temuLocalGoodsListRetrieve(TemuLocalGoodsListRetrieveRequest request) throws IOException, TemuException {
+    	String type = "temu.local.goods.list.retrieve";
+    	
+    	TemuWorkflow<TemuLocalGoodsListRetrieveResponse> tw = TemuWorkflow
+    													.<TemuLocalGoodsListRetrieveResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuLocalGoodsListRetrieveResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    
 }
