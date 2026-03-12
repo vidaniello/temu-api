@@ -9,17 +9,23 @@ import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsImageUploa
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsImageUploadResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsPartialUpdateRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsPartialUpdateResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsStockEditRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsStockEditResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgOpenAccessTokenInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderListV2GetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderListV2GetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsDeleteRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsDeleteResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsListRetrieveRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsListRetrieveResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsSkuStockQueryRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsSkuStockQueryResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsV2AddRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsV2AddResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductAttributesGetRequest;
@@ -273,6 +279,36 @@ public class TemuClient {
     	
     }
     
+    public BgLocalGoodsStockEditResponse bgLocalGoodsStockEdit(BgLocalGoodsStockEditRequest request) throws IOException, TemuException {
+    	String type = "bg.local.goods.stock.edit";
+    	
+    	TemuWorkflow<BgLocalGoodsStockEditResponse> tw = TemuWorkflow
+    													.<BgLocalGoodsStockEditResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLocalGoodsStockEditResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public TemuLocalGoodsSkuStockQueryResponse temuLocalGoodsSkuStockQuery(TemuLocalGoodsSkuStockQueryRequest request) throws IOException, TemuException {
+    	String type = "temu.local.goods.sku.stock.query";
+    	
+    	TemuWorkflow<TemuLocalGoodsSkuStockQueryResponse> tw = TemuWorkflow
+    													.<TemuLocalGoodsSkuStockQueryResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuLocalGoodsSkuStockQueryResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
     public TemuLocalGoodsDeleteResponse temuLocalGoodsDelete(TemuLocalGoodsDeleteRequest request) throws IOException, TemuException {
     	String type = "temu.local.goods.delete";
     	
@@ -317,6 +353,35 @@ public class TemuClient {
     	return doPOST(tw);
     	
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public BgOrderListV2GetResponse bgOrderListV2Get(BgOrderListV2GetRequest request) throws IOException, TemuException {
+    	String type = "bg.order.list.v2.get";
+    	
+    	TemuWorkflow<BgOrderListV2GetResponse> tw = TemuWorkflow
+    													.<BgOrderListV2GetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgOrderListV2GetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    
+    
+    //bg.order.detail.v2.get
+    //bg.order.shippinginfo.v2.get
     
     
 }

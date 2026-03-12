@@ -22,8 +22,13 @@ import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetResp
 import com.github.vidaniello.temuapi.requestresultobjects.BgOpenAccessTokenInfoGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsListRetrieveRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsListRetrieveResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalSkuListRetrieveRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalSkuListRetrieveResponse;
 
 public class Tests {
+	
 	static {
 		// Log4j from 2.17.>
 		//System.setProperty("log4j2.Configuration.allowedProtocols", "http");
@@ -44,6 +49,42 @@ public class Tests {
 	public void testTemplate() {
 		try {
 			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	
+	@Test
+	public void testTemuLocalSkuListRetrieve() {
+		try {
+			
+			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
+			
+			TemuLocalSkuListRetrieveResponse resp = client.temuLocalSkuListRetrieve(new TemuLocalSkuListRetrieveRequest().setSkuSearchType("INACTIVE"));
+			
+			Assert.assertTrue(resp!=null);
+						
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	@Test
+	public void testTemuLocalGoodsListRetrieve() {
+		try {
+			
+			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
+			
+			
+			TemuLocalGoodsListRetrieveResponse resp = client.temuLocalGoodsListRetrieve(new TemuLocalGoodsListRetrieveRequest().setGoodsSearchType("ALL").setOutSkuSnList(Arrays.asList("1070-test-019")));
+			
+			Assert.assertTrue(resp!=null);
+
+			Assert.assertTrue(!resp.getGoodsList().isEmpty());
+						
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			throw new AssertionError(e);

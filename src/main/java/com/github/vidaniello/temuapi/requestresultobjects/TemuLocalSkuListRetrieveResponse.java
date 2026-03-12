@@ -20,6 +20,11 @@ public class TemuLocalSkuListRetrieveResponse implements TemuResponseIf {
 	 * Pagination object containing tokens and the list of SKUs.
 	 */
 	private Pagination pagination;
+	
+	/**
+	 * A list of SKU identifiers for the product
+	 */
+	private List<SkuInfo> skuList;
 		
 	public TemuLocalSkuListRetrieveResponse() {
 	}
@@ -53,6 +58,24 @@ public class TemuLocalSkuListRetrieveResponse implements TemuResponseIf {
 	 */
 	public TemuLocalSkuListRetrieveResponse setPagination(Pagination pagination) {
 		this.pagination = pagination;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<SkuInfo> getSkuList() {
+		return skuList;
+	}
+	
+	/**
+	 * 
+	 * @param skuList
+	 * @return
+	 */
+	public TemuLocalSkuListRetrieveResponse setSkuList(List<SkuInfo> skuList) {
+		this.skuList = skuList;
 		return this;
 	}
 	
