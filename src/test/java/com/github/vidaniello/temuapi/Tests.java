@@ -20,6 +20,9 @@ import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGet
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgOpenAccessTokenInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderDetailV2GetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderListV2GetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderListV2GetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsListRetrieveRequest;
@@ -49,6 +52,21 @@ public class Tests {
 	public void testTemplate() {
 		try {
 			
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+			throw new AssertionError(e);
+		}
+	}
+	
+	@Test
+	public void testBgOrderListV2Get() {
+		try {
+			
+			TemuClient client = new TemuClient(TemuSandboxAccounts.getForIT());
+			
+			BgOrderListV2GetResponse resp = client.bgOrderListV2Get(new BgOrderListV2GetRequest().setParentOrderStatus(0));
+			
+			Assert.assertTrue(resp!=null);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			throw new AssertionError(e);
