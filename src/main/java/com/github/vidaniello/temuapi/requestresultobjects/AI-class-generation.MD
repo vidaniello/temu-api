@@ -1,131 +1,3 @@
-sulla base di questo oggetto come esempio per effettuare richieste:
-
-Contenuto del file '/temu-api/src/main/java/com/github/vidaniello/temuapi/requestresultobjects/BgLocalMallInfoGetRequest.java':
-```
-1: package com.github.vidaniello.temuapi.requestresultobjects;
-2: 
-3: import java.util.ArrayList;
-4: import java.util.List;
-5: 
-6: /**
-7:  * Request object for the API call 'bg.local.mall.info.get'.
-8:  * Used to retrieve mall IDs and site information.
-9:  */
-10: public class BgLocalMallInfoGetRequest implements TemuRequestIf {
-11: 
-12: 	private static final long serialVersionUID = 1L;
-13: 	
-14: 	/**
-15: 	 * Associated mall ID.
-16: 	 * Required for Query;
-17: 	 * Optional – if provided, it will only return mall IDs and site information 
-18: 	 * for malls under the same entity as the current mall, within the range of 
-19: 	 * the specified branchesMallId.
-20: 	 */
-21: 	private List<Long> branchesMallId;
-22: 		
-23: 	public BgLocalMallInfoGetRequest() {
-24: 		this.branchesMallId = new ArrayList<>();
-25: 	}
-26: 	
-27: 	/**
-28: 	 * @return the list of associated mall IDs
-29: 	 */
-30: 	public List<Long> getBranchesMallId() {
-31: 		return branchesMallId;
-32: 	}
-33: 	
-34: 	/**
-35: 	 * @param branchesMallId the list of associated mall IDs
-36: 	 * @return this request object for method chaining
-37: 	 */
-38: 	public BgLocalMallInfoGetRequest setBranchesMallId(List<Long> branchesMallId) {
-39: 		this.branchesMallId = branchesMallId;
-40: 		return this;
-41: 	}
-42: }
-```
-crea quest'altro oggetto di richiesta per la chiamata api 'temu.local.goods.delete':
-
-```
-goodsId
-LONG	True	goodsId
-```
-
-Usa List per gli array ed includi la documentazione e se hai bisogno di creare altre classi, fai InnerClass.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-mi fai anche la risposta? di seguito i campi necessari (fai estendere l'interfaccia TemuResponseIf):
-
-```
-success
-BOOLEAN	delete result
-errorMsg
-STRING	error message
-```
-
-
-
-
-
-
-
-
-
-Perfetto! Mi fai adesso quest'altro oggetto di richiesta alla chiamata 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'?
-
-```
-...
-```
-
-mi fai anche la risposta? di seguito i campi necessari:
-
-```
-...
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Sullo stile di questi oggetti che rappresentano la richiesta e la risposta ad una chiamata api:
 
 Contenuto del file '/temu-api/src/main/java/com/github/vidaniello/temuapi/requestresultobjects/BgLocalGoodsCatsGetRequest.java':
@@ -444,36 +316,33 @@ Contenuto del file '/temu-api/src/main/java/com/github/vidaniello/temuapi/reques
 253: }
 ```
 
-mi generi l'oggetto per la request alla chiamata api '':
+mi generi l'oggetto per la request e l'oggetto per la response alla chiamata api '':
 
-Struttura json d'esempio:
+Descrizione call: 
 
-```
-{
-   
-}
-```
-
-Documentazione:
-
-```
-
-```
-
-
-
-Questo invece è l'oggetto response:
-
-Struttura json d'esempio:
-
+Struttura oggetto json request d'esempio:
 
 ```
 {
-
+  
 }
 ```
 
-Documentazione:
+Documentazione request:
+
+```
+
+```
+
+Struttura oggetto json response d'esempio:
+
+```
+{
+  
+}
+```
+
+Documentazione response:
 
 ```
 

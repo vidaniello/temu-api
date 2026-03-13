@@ -10,6 +10,7 @@ import java.util.Date;
 import com.github.vidaniello.temuapi.exceptions.TemuException;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuRequestIf;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuResponseIf;
+import com.github.vidaniello.temuapi.requestresultobjects.VoidResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -143,6 +144,10 @@ public class TemuWorkflow<T extends TemuResponseIf> {
 	}
 	
 	public T getResponseObject() {
+		
+		if(getResponseType().equals(VoidResponse.class))
+			return null;
+		
 		if(getTemuResponse().getResult()!=null) 
 			responseObject = getGson().fromJson(getTemuResponse().getResult(), getResponseType());
 		return responseObject;

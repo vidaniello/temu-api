@@ -15,9 +15,25 @@ import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGet
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalMallInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLogisticsCompaniesGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLogisticsCompaniesGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLogisticsShipmentShippingtypeUpdateRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLogisticsShipmentV2ConfirmRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLogisticsShipmentV2ConfirmResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLogisticsShipmentV2GetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLogisticsShipmentV2GetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgOpenAccessTokenInfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderAmountQueryRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderAmountQueryResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderDecryptshippinginfoGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderDecryptshippinginfoGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderDetailV2GetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderDetailV2GetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgOrderListV2GetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgOrderListV2GetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderShippinginfoV2GetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgOrderShippinginfoV2GetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.VoidResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsBrandTrademarkV2GetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsDeleteRequest;
@@ -28,13 +44,24 @@ import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsSkuStock
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsSkuStockQueryResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsV2AddRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalGoodsV2AddResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalOrderVerificationUploadRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductAttributesGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductAttributesGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductVariationGetRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalProductVariationGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalSkuListRetrieveRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuLocalSkuListRetrieveResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuOrderCancelAppealApplyRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuOrderCancelAppealApplyResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuOrderCancelAppealResultGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuOrderCancelAppealResultGetResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuOrderCancelOutofstockApplyRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuOrderCancelOutofstockApplyResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuOrderCancelOutofstockResultGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuOrderCancelOutofstockResultGetResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuResponseIf;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuTrackTrackinginfoGetRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuTrackTrackinginfoGetResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -356,6 +383,96 @@ public class TemuClient {
     
     
     
+    public BgOrderAmountQueryResponse bgOrderAmountQuery(BgOrderAmountQueryRequest request) throws IOException, TemuException {
+    	String type = "bg.order.amount.query";
+    	
+    	TemuWorkflow<BgOrderAmountQueryResponse> tw = TemuWorkflow
+    													.<BgOrderAmountQueryResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgOrderAmountQueryResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public void temuLocalOrderVerificationUpload(TemuLocalOrderVerificationUploadRequest request) throws IOException, TemuException {
+    	String type = "temu.local.order.verification.upload";
+    	
+    	TemuWorkflow<VoidResponse> tw = TemuWorkflow
+    													.<VoidResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(VoidResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	doPOST(tw);
+    	
+    }
+    
+    public TemuOrderCancelAppealApplyResponse temuOrderCancelAppealApply(TemuOrderCancelAppealApplyRequest request) throws IOException, TemuException {
+    	String type = "temu.order.cancel.appeal.apply";
+    	
+    	TemuWorkflow<TemuOrderCancelAppealApplyResponse> tw = TemuWorkflow
+    													.<TemuOrderCancelAppealApplyResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuOrderCancelAppealApplyResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public TemuOrderCancelAppealResultGetResponse temuOrderCancelAppealResultGet(TemuOrderCancelAppealResultGetRequest request) throws IOException, TemuException {
+    	String type = "temu.order.cancel.appeal.result.get";
+    	
+    	TemuWorkflow<TemuOrderCancelAppealResultGetResponse> tw = TemuWorkflow
+    													.<TemuOrderCancelAppealResultGetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuOrderCancelAppealResultGetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public TemuOrderCancelOutofstockApplyResponse temuOrderCancelOutofstockApply(TemuOrderCancelOutofstockApplyRequest request) throws IOException, TemuException {
+    	String type = "temu.order.cancel.outofstock.apply";
+    	
+    	TemuWorkflow<TemuOrderCancelOutofstockApplyResponse> tw = TemuWorkflow
+    													.<TemuOrderCancelOutofstockApplyResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuOrderCancelOutofstockApplyResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public TemuOrderCancelOutofstockResultGetResponse temuOrderCancelOutofstockResultGet(TemuOrderCancelOutofstockResultGetRequest request) throws IOException, TemuException {
+    	String type = "temu.order.cancel.outofstock.result.get";
+    	
+    	TemuWorkflow<TemuOrderCancelOutofstockResultGetResponse> tw = TemuWorkflow
+    													.<TemuOrderCancelOutofstockResultGetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuOrderCancelOutofstockResultGetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+  
     
     
     
@@ -380,8 +497,149 @@ public class TemuClient {
     
     
     
-    //bg.order.detail.v2.get
-    //bg.order.shippinginfo.v2.get
+
+    public BgOrderDetailV2GetResponse bgOrderListV2Get(BgOrderDetailV2GetRequest request) throws IOException, TemuException {
+    	String type = "bg.order.detail.v2.get";
+    	
+    	TemuWorkflow<BgOrderDetailV2GetResponse> tw = TemuWorkflow
+    													.<BgOrderDetailV2GetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgOrderDetailV2GetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public BgOrderShippinginfoV2GetResponse bgOrderShippinginfoV2Get(BgOrderShippinginfoV2GetRequest request) throws IOException, TemuException {
+    	String type = "bg.order.shippinginfo.v2.get";
+    	
+    	TemuWorkflow<BgOrderShippinginfoV2GetResponse> tw = TemuWorkflow
+    													.<BgOrderShippinginfoV2GetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgOrderShippinginfoV2GetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    
+    public BgOrderDecryptshippinginfoGetResponse bgOrderDecryptshippinginfoGet(BgOrderDecryptshippinginfoGetRequest request) throws IOException, TemuException {
+    	String type = "bg.order.decryptshippinginfo.get";
+    	
+    	TemuWorkflow<BgOrderDecryptshippinginfoGetResponse> tw = TemuWorkflow
+    													.<BgOrderDecryptshippinginfoGetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgOrderDecryptshippinginfoGetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public BgLogisticsCompaniesGetResponse bgLogisticsCompaniesGet(BgLogisticsCompaniesGetRequest request) throws IOException, TemuException {
+    	String type = "bg.logistics.companies.get";
+    	
+    	TemuWorkflow<BgLogisticsCompaniesGetResponse> tw = TemuWorkflow
+    													.<BgLogisticsCompaniesGetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLogisticsCompaniesGetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public BgLogisticsShipmentV2ConfirmResponse bgLogisticsShipmentV2Cofirm(BgLogisticsShipmentV2ConfirmRequest request) throws IOException, TemuException {
+    	String type = "bg.logistics.shipment.v2.confirm";
+    	
+    	TemuWorkflow<BgLogisticsShipmentV2ConfirmResponse> tw = TemuWorkflow
+    													.<BgLogisticsShipmentV2ConfirmResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLogisticsShipmentV2ConfirmResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+
+    public BgLogisticsShipmentV2GetResponse bgLogisticsShipmentV2Get(BgLogisticsShipmentV2GetRequest request) throws IOException, TemuException {
+    	String type = "bg.logistics.shipment.v2.get";
+    	
+    	TemuWorkflow<BgLogisticsShipmentV2GetResponse> tw = TemuWorkflow
+    													.<BgLogisticsShipmentV2GetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLogisticsShipmentV2GetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+
+
+    public void bgLogisticsShipmentShippingtypeUpdate(BgLogisticsShipmentShippingtypeUpdateRequest request) throws IOException, TemuException {
+    	String type = "bg.logistics.shipment.shippingtype.update";
+    	
+    	TemuWorkflow<VoidResponse> tw = TemuWorkflow
+    													.<VoidResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(VoidResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	doPOST(tw);
+    }
+    
+    
+    public TemuTrackTrackinginfoGetResponse temuTrackTrackinginfoGet(TemuTrackTrackinginfoGetRequest request) throws IOException, TemuException {
+    	String type = "temu.track.trackinginfo.get";
+    	
+    	TemuWorkflow<TemuTrackTrackinginfoGetResponse> tw = TemuWorkflow
+    													.<TemuTrackTrackinginfoGetResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(TemuTrackTrackinginfoGetResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    
+   
+
+    
     
     
 }
