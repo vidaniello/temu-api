@@ -1,6 +1,10 @@
 package com.github.vidaniello.temuapi;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -178,17 +182,18 @@ public class Tests {
 			BgLocalGoodsCatsGetResponse resp = client.bgLocalGoodsCatsGet(new BgLocalGoodsCatsGetRequest());
 			
 			Assert.assertTrue(resp!=null);
-			
+					
 			iterateCategories(client, resp.getGoodsCatsList(), "");
-			
+
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 			throw new AssertionError(e);
 		}
 	}
-	
+		
 	public void iterateCategories(TemuClient client, List<GoodsCats> categoryList, String identitation) throws IOException, TemuException {
 		for(GoodsCats cat : categoryList) {
+			try {Thread.sleep(200);} catch (InterruptedException e) {}
 			log.trace(identitation+cat.getCatId()+" - "+cat.getCatName());
 			if(!cat.getLeaf())
 				iterateCategory(client, cat, identitation+"\t");
