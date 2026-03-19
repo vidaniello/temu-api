@@ -9,6 +9,8 @@ import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsImageUploa
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsImageUploadResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsPartialUpdateRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsPartialUpdateResponse;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsPriceorderChangeSkuPriceRequest;
+import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsPriceorderChangeSkuPriceResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsStockEditRequest;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsStockEditResponse;
 import com.github.vidaniello.temuapi.requestresultobjects.BgLocalGoodsTaxCodeGetRequest;
@@ -124,7 +126,9 @@ public class TemuClient {
         StringEntity entity = new StringEntity(jsonBody);
         httpPost.setEntity(entity);
         
-        try (CloseableHttpClient client = HttpClients.createDefault();
+        try (CloseableHttpClient client = HttpClients.custom()
+                .disableCookieManagement()
+                .build();
              CloseableHttpResponse response = client.execute(httpPost)) {
             HttpEntity responseEntity = response.getEntity();
             if (responseEntity != null) {
@@ -328,6 +332,21 @@ public class TemuClient {
     													.<TemuLocalGoodsSkuStockQueryResponse>init(getTemuAuthParams())
     													.setRequestObject(request)
     													.setResponseType(TemuLocalGoodsSkuStockQueryResponse.class);
+    	
+    	tw.getTemuCommonRequestParameters()
+    	  .setType(type);
+    	
+    	return doPOST(tw);
+    	
+    }
+    
+    public BgLocalGoodsPriceorderChangeSkuPriceResponse bgLocalGoodsPriceorderChangeSkuPrice(BgLocalGoodsPriceorderChangeSkuPriceRequest request) throws IOException, TemuException {
+    	String type = "bg.local.goods.priceorder.change.sku.price";
+    	
+    	TemuWorkflow<BgLocalGoodsPriceorderChangeSkuPriceResponse> tw = TemuWorkflow
+    													.<BgLocalGoodsPriceorderChangeSkuPriceResponse>init(getTemuAuthParams())
+    													.setRequestObject(request)
+    													.setResponseType(BgLocalGoodsPriceorderChangeSkuPriceResponse.class);
     	
     	tw.getTemuCommonRequestParameters()
     	  .setType(type);

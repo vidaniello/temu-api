@@ -2,6 +2,7 @@ package com.github.vidaniello.temuapi.exceptions;
 
 import com.github.vidaniello.temuapi.TemuResponse;
 import com.github.vidaniello.temuapi.TemuWorkflow;
+import com.github.vidaniello.temuapi.requestresultobjects.TemuResponseIf;
 
 public class TemuExceptionFactory {
 
@@ -9,7 +10,7 @@ public class TemuExceptionFactory {
         // Utility class - no instantiation
     }
     
-    public static void checkAndThrowTemuException(TemuWorkflow tw) throws TemuException {
+    public static <T extends TemuResponseIf> void checkAndThrowTemuException(TemuWorkflow<T> tw) throws TemuException {
     	
     	TemuException tex = TemuExceptionFactory.createException(tw.getTemuResponse());
     	
@@ -107,7 +108,7 @@ public class TemuExceptionFactory {
             case 7000000:
                 return new BusinessServiceErrorException(errorMsg);
             default:
-                return new InvalidRequestException(errorCode, errorMsg != null ? errorMsg : "error code "+new Integer(errorCode).toString());
+                return new InvalidRequestException(errorCode, errorMsg != null ? "("+new Integer(errorCode).toString()+") "+errorMsg : "error code "+new Integer(errorCode).toString());
         }
     }
 }
