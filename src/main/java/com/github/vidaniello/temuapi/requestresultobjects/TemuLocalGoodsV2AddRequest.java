@@ -907,39 +907,49 @@ public class TemuLocalGoodsV2AddRequest implements TemuRequestIf {
 		}
 		
 		/**
-		 * Product Package Information.
+		 * Product Package Information.<br>
+		 * Il Peso è espresso in grammi. Le dimensioni in centimetri.
 		 */
 		public static class PackageInfo implements java.io.Serializable {
 			
 			private static final long serialVersionUID = 1L;
 			
 			/**
-			 * Weight.
+			 * Weight. In grammi.
 			 */
 			private String weight;
 			
 			/**
-			 * Length.
+			 * Length. In centimetri.
 			 */
 			private String length;
 			
 			/**
-			 * Width.
+			 * Width. In centimetri.
 			 */
 			private String width;
 			
 			/**
-			 * Height.
+			 * Height. In centimetri.
 			 */
 			private String height;
 				
 			public PackageInfo() {
 			}
 			
+			/**
+			 * Espressa in grammi
+			 * @return
+			 */
 			public String getWeight() {
 				return weight;
 			}
 			
+			/**
+			 * Esrpimere in grammi
+			 * @param weight
+			 * @return
+			 */
 			public PackageInfo setWeight(String weight) {
 				this.weight = weight;
 				return this;
