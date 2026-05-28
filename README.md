@@ -19,6 +19,7 @@ Connection parameters are loaded by the `TemuPropertyReader` singleton using a t
    - `TEMU_APPKEY`
    - `TEMU_APP_SECRET`
    - `TEMU_ENDPOINT_AEREA` (Note: the environment variable name uses "AEREA")
+   - `TEMU_SHOP_ID` the related shop id
 
 2. **Properties File**: Subsequently, the library looks for a properties file to potentially override or fallback to the environment variables.
    - The default file location is `<user.home>/temu.properties`.

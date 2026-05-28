@@ -11,6 +11,7 @@ public class TemuAuthParams implements Serializable {
 	private String accessToken;
 	private String appKey;
 	private String appSecret;
+	private String mallId;
 	
 	public TemuAuthParams() {
 	
@@ -49,6 +50,15 @@ public class TemuAuthParams implements Serializable {
 	
 	public TemuAuthParams setAppSecret(String appSecret) {
 		this.appSecret = appSecret;
+		return this;
+	}
+	
+	public String getMallId() {
+		return mallId;
+	}
+	
+	public TemuAuthParams setMallId(String mallId) {
+		this.mallId = mallId;
 		return this;
 	}
 	

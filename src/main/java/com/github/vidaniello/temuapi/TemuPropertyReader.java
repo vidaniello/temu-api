@@ -10,10 +10,11 @@ public class TemuPropertyReader {
 	public static final String accessToken_EnvVarName 			= "TEMU_ACCESS_TOKEN";
 	public static final String appKey_EnvVarName 				= "TEMU_APPKEY";
 	public static final String appSecret_EnvVarName 			= "TEMU_APP_SECRET";
+	public static final String temuPropertieTemuShopId_EnvVarName = "TEMU_SHOP_ID";
 	
 	public static final String temuPropertieFilePath_EnvVarName = "TEMU_PROPERTIES_FILE_PATH";
 	public static final String temuPropertieFileName_EnvVarName = "TEMU_PROPERTIES_FILE_NAME";
-
+	
 	public static final String temuPropertiesDefaultFilePath	= System.getProperty("user.home");
 	public static final String temuPropertiesDefaultFileName	= "temu.properties";
 	
@@ -36,6 +37,7 @@ public class TemuPropertyReader {
 			ret.setAccessToken(System.getenv(accessToken_EnvVarName));
 			ret.setAppKey(System.getenv(appKey_EnvVarName));
 			ret.setAppSecret(System.getenv(appSecret_EnvVarName));
+			ret.setMallId(System.getenv(temuPropertieTemuShopId_EnvVarName));
 			
 			String endpoint = null;
 			try {
@@ -67,6 +69,7 @@ public class TemuPropertyReader {
 					ret.setAccessToken(temuProps.getProperty(accessToken_EnvVarName, System.getenv(accessToken_EnvVarName)));
 					ret.setAppKey(temuProps.getProperty(appKey_EnvVarName, System.getenv(appKey_EnvVarName)));
 					ret.setAppSecret(temuProps.getProperty(appSecret_EnvVarName, System.getenv(appSecret_EnvVarName)));
+					ret.setMallId(temuProps.getProperty(temuPropertieTemuShopId_EnvVarName, System.getenv(temuPropertieTemuShopId_EnvVarName)));
 					try {
 						ret.setEndpoint(TemuEndpoints.getEndpointByArea(temuProps.getProperty(endpointArea_EnvVarName)));
 					} catch (NullPointerException npex) {
