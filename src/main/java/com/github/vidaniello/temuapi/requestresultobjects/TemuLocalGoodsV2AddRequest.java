@@ -45,6 +45,12 @@ public class TemuLocalGoodsV2AddRequest implements TemuRequestIf {
 	 * List of SKUs. There must be at least one SKU.
 	 */
 	private List<SkuList> skuList;
+	
+	/**
+	 * goodsVehiclePropertyRelation
+	 * referenceGoods
+	 * certificationInfo
+	 */
 		
 	public TemuLocalGoodsV2AddRequest() {
 		this.goodsProperty = new ArrayList<>();
