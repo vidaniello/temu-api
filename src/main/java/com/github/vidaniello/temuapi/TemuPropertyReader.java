@@ -66,12 +66,14 @@ public class TemuPropertyReader {
 				} catch (Exception e) { }
 				
 				if(!temuProps.isEmpty()) {
-					ret.setAccessToken(temuProps.getProperty(accessToken_EnvVarName, System.getenv(accessToken_EnvVarName)));
-					ret.setAppKey(temuProps.getProperty(appKey_EnvVarName, System.getenv(appKey_EnvVarName)));
-					ret.setAppSecret(temuProps.getProperty(appSecret_EnvVarName, System.getenv(appSecret_EnvVarName)));
-					ret.setMallId(temuProps.getProperty(temuPropertieTemuShopId_EnvVarName, System.getenv(temuPropertieTemuShopId_EnvVarName)));
+					//trim(): il file puo' avere fine riga CRLF (Windows), i valori
+					//terminerebbero con '\r' invalidando chiavi, token e endpoint
+					ret.setAccessToken(temuProps.getProperty(accessToken_EnvVarName, System.getenv(accessToken_EnvVarName)).trim());
+					ret.setAppKey(temuProps.getProperty(appKey_EnvVarName, System.getenv(appKey_EnvVarName)).trim());
+					ret.setAppSecret(temuProps.getProperty(appSecret_EnvVarName, System.getenv(appSecret_EnvVarName)).trim());
+					ret.setMallId(temuProps.getProperty(temuPropertieTemuShopId_EnvVarName, System.getenv(temuPropertieTemuShopId_EnvVarName)).trim());
 					try {
-						ret.setEndpoint(TemuEndpoints.getEndpointByArea(temuProps.getProperty(endpointArea_EnvVarName)));
+						ret.setEndpoint(TemuEndpoints.getEndpointByArea(temuProps.getProperty(endpointArea_EnvVarName).trim()));
 					} catch (NullPointerException npex) {
 						ret.setEndpoint(endpoint);
 					}

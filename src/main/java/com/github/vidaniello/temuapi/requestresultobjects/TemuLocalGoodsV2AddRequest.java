@@ -3,6 +3,8 @@ package com.github.vidaniello.temuapi.requestresultobjects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Request object for the API call 'temu.local.goods.v2.add'.
  * Used to add a new product.
@@ -729,7 +731,16 @@ public class TemuLocalGoodsV2AddRequest implements TemuRequestIf {
 		private PackageInfo packageInfo;
 		
 		/**
-		 * Specifications used for this SKU.
+		 * Specifications used for this SKU, come oggetti {@link SpecDetails}.<br>
+		 * VERIFICATO EMPIRICAMENTE (2026-10): TEMU accetta 'specDetails' come
+		 * array di oggetti {parentSpecId, specId} oppure {parentSpecId, specName};
+		 * rifiuta invece con '(150011003) Invalid Request Parameters [specIdList]'
+		 * sia l'array vuoto, sia l'array di ID numerici, sia valori con ID non
+		 * piu' validi (il catalogo delle specifiche e' stato migrato a un nuovo
+		 * spazio di ID, non piu' recuperabile da temu.local.product.variation.get,
+		 * che ora risponde con 'specList' vuota/null).<br>
+		 * Con 'specName' TEMU accetta VALORI CUSTOM testuali (es. "Nero"),
+		 * creando al volo il valore della specifica.
 		 */
 		private List<SpecDetails> specDetails;
 		
@@ -750,7 +761,6 @@ public class TemuLocalGoodsV2AddRequest implements TemuRequestIf {
 			
 		public SkuList() {
 			this.images = new ArrayList<>();
-			this.specDetails = new ArrayList<>();
 		}
 		
 		public List<String> getImages() {
@@ -801,12 +811,12 @@ public class TemuLocalGoodsV2AddRequest implements TemuRequestIf {
 		public List<SpecDetails> getSpecDetails() {
 			return specDetails;
 		}
-		
+
 		public SkuList setSpecDetails(List<SpecDetails> specDetails) {
 			this.specDetails = specDetails;
 			return this;
 		}
-		
+
 		public Integer getBarCodeType() {
 			return barCodeType;
 		}

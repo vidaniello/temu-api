@@ -12,10 +12,23 @@ public class TemuResponse implements Serializable {
 	private String requestId;
 	private Integer errorCode;
 	private String errorMsg;
+
+	/**
+	 * Messaggio d'errore secondario di TEMU: contiene spesso il dettaglio
+	 * specifico del parametro o della regola di validazione violata.
+	 */
+	private String subErrorMsg;
 	private JsonObject result;
-	
+
+	/**
+	 * Body RAW della risposta HTTP, valorizzato dal client al momento della
+	 * chiamata: usato per comporre errori il piu' specifici possibile anche
+	 * quando l'envelope non contiene tutti i campi attesi.
+	 */
+	private transient String rawBody;
+
 	public TemuResponse() {
-		
+
 	}
 
 	public Boolean getSuccess() {
@@ -53,14 +66,32 @@ public class TemuResponse implements Serializable {
 		this.errorMsg = errorMsg;
 		return this;
 	}
-	
+
+	public String getSubErrorMsg() {
+		return subErrorMsg;
+	}
+
+	public TemuResponse setSubErrorMsg(String subErrorMsg) {
+		this.subErrorMsg = subErrorMsg;
+		return this;
+	}
+
+	public String getRawBody() {
+		return rawBody;
+	}
+
+	public TemuResponse setRawBody(String rawBody) {
+		this.rawBody = rawBody;
+		return this;
+	}
+
 	public JsonObject getResult() {
 		return result;
 	}
-	
+
 	public TemuResponse setResult(JsonObject result) {
 		this.result = result;
 		return this;
 	}
-	
+
 }

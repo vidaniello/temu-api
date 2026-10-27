@@ -12,6 +12,7 @@ import com.github.vidaniello.temuapi.requestresultobjects.TemuRequestIf;
 import com.github.vidaniello.temuapi.requestresultobjects.TemuResponseIf;
 import com.github.vidaniello.temuapi.requestresultobjects.VoidResponse;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -113,6 +114,15 @@ public class TemuWorkflow<T extends TemuResponseIf> {
 		return this;
 	}
 
+	/**
+	 * Body della richiesta serializzato SENZA escape HTML, coerente con
+	 * {@link #calculateSign()}: JsonElement.toString() e il Gson di default
+	 * escapano i caratteri HTML (' < > & =), inutilmente per il server.
+	 */
+	public String getRequestBodyJson() {
+		return new GsonBuilder().disableHtmlEscaping().create().toJson(getRequest());
+	}
+
 	public TemuResponse getTemuResponse() {
 		return temuResponse;
 	}
@@ -159,36 +169,44 @@ public class TemuWorkflow<T extends TemuResponseIf> {
 	}
 	
 	public TemuWorkflow<T> calculateSign() {
-		
+
 		StringBuilder concat = new StringBuilder();
-    	
-    	concat.append(getTemuAuthParams().getAppSecret());
-    	
-    	getTemuCommonRequestParameters().loadRequest(getGson(), getRequest());
-    	
-    	
-    	if(getRequestObject()!=null) 
-    		getGson()
-    			.toJsonTree(getRequestObject())
-    			.getAsJsonObject()
-    			.asMap()
+
+		concat.append(getTemuAuthParams().getAppSecret());
+
+		//Il sign DEVE essere calcolato sulla serializzazione JSON SENZA escape
+		//HTML: il server TEMU ricarica il body e ri-serializza i valori annidati
+		//senza gli escape HTML di Gson di default (', <, >, &, = -> \u0027 ecc.),
+		//quindi con l'escape di default ogni testo contenente questi caratteri
+		//(es. apostrofi nelle descrizioni italiane) genera l'errore
+		//'(3000001) sign is invalid'
+		Gson gsonSenzaEscape = new GsonBuilder().disableHtmlEscaping().create();
+
+		getTemuCommonRequestParameters().loadRequest(getGson(), getRequest());
+
+
+		if(getRequestObject()!=null)
+			gsonSenzaEscape
+				.toJsonTree(getRequestObject())
+				.getAsJsonObject()
+				.asMap()
 				.forEach(getRequest()::add);
-    	
-    	
-    	getRequest()
-    		.keySet()
-    		.stream()
-    		.sorted()
-    		.forEach(key->{
-    			JsonElement jsel = getRequest().get(key);
-    			String concatStr = null;
-    			if(jsel.isJsonPrimitive())
-    				concatStr = jsel.getAsString();
-    			else
-    				concatStr = getGson().toJson(jsel);
-    				
-    			concat.append(key+concatStr);
-    		});
+
+
+		getRequest()
+			.keySet()
+			.stream()
+			.sorted()
+			.forEach(key->{
+				JsonElement jsel = getRequest().get(key);
+				String concatStr = null;
+				if(jsel.isJsonPrimitive())
+					concatStr = jsel.getAsString();
+				else
+					concatStr = gsonSenzaEscape.toJson(jsel);
+
+				concat.append(key+concatStr);
+			});
     	
     	concat.append(getTemuAuthParams().getAppSecret());
 		

@@ -11,28 +11,72 @@ public class TemuExceptionFactory {
     }
     
     public static <T extends TemuResponseIf> void checkAndThrowTemuException(TemuWorkflow<T> tw) throws TemuException {
-    	
-    	TemuException tex = TemuExceptionFactory.createException(tw.getTemuResponse());
-    	
+
+    	TemuException tex = TemuExceptionFactory.createException(tw.getTemuResponse(), tw);
+
     	if(tex!=null) {
     		tw.setTemuException(tex);
     		throw tex;
     	}
-    	
+
     }
-    
+
     public static TemuException createException(TemuResponse response) {
+        return createException(response, null);
+    }
+
+    public static TemuException createException(TemuResponse response, TemuWorkflow<?> tw) {
         if (response == null || response.getErrorCode() == null) {
             return null;
         }
-        
-        int errorCode = response.getErrorCode();
-        String errorMsg = response.getErrorMsg();
-        
-        return createException(errorCode, errorMsg);
- 
+
+        return createException(response.getErrorCode(), composeErrorMessage(response, tw));
     }
-    
+
+    /**
+     * Compone il messaggio d'errore il piu' specifico possibile: tipo di chiamata,
+     * errorMsg, subErrorMsg, requestId, oggetto result, body RAW della risposta e
+     * body JSON della richiesta che l'ha generata, tutti gli elementi presenti.
+     */
+    public static String composeErrorMessage(TemuResponse response, TemuWorkflow<?> tw) {
+
+    	StringBuilder sb = new StringBuilder();
+
+    	if (tw != null && tw.getTemuCommonRequestParameters() != null
+    			&& hasText(tw.getTemuCommonRequestParameters().getType()))
+    		sb.append("chiamata: ").append(tw.getTemuCommonRequestParameters().getType());
+
+    	if (hasText(response.getErrorMsg()))
+    		sb.append(sep(sb)).append(response.getErrorMsg());
+
+    	if (hasText(response.getSubErrorMsg()))
+    		sb.append(sep(sb)).append("subErrorMsg: ").append(response.getSubErrorMsg());
+
+    	if (hasText(response.getRequestId()))
+    		sb.append(sep(sb)).append("requestId: ").append(response.getRequestId());
+
+    	if (response.getResult() != null && response.getResult().size() > 0)
+    		sb.append(sep(sb)).append("result: ").append(response.getResult());
+
+    	if (hasText(response.getRawBody()))
+    		sb.append(sep(sb)).append("risposta: ").append(response.getRawBody());
+
+    	if (tw != null && tw.getRequest() != null && tw.getRequest().size() > 0)
+    		sb.append(sep(sb)).append("richiesta: ").append(tw.getRequest());
+
+    	return sb.length() > 0 ? sb.toString() : "errore non specificato (senza errorMsg)";
+    }
+
+    /** Testo presente e non vuoto (compatibile Java 8, senza String.isBlank). */
+    private static boolean hasText(String s) {
+    	return s != null && !s.trim().isEmpty();
+    }
+
+    /** Separatore '|', senza prefisso iniziale. */
+    private static String sep(StringBuilder sb) {
+    	return sb.length() > 0 ? " | " : "";
+    }
+
     public static TemuException createException(int errorCode, String errorMsg) {
     	
         // Success code - no exception needed
